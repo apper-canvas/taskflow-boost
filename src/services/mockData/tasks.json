@@ -1,0 +1,59 @@
+{
+  "taskData": [
+    {
+      "id": "1",
+      "title": "Review quarterly sales report",
+      "description": "Analyze Q3 performance metrics and prepare insights for the board meeting next week",
+      "categoryId": "work",
+      "priority": "high",
+      "dueDate": "2024-01-15T09:00:00.000Z",
+      "completed": false,
+      "createdAt": "2024-01-10T08:30:00.000Z",
+      "completedAt": null
+    },
+    {
+      "id": "2",
+      "title": "Update project documentation",
+      "description": "Revise API documentation and user guides for the new feature release",
+      "categoryId": "work",
+      "priority": "medium",
+      "dueDate": "2024-01-18T17:00:00.000Z",
+      "completed": false,
+      "createdAt": "2024-01-09T14:15:00.000Z",
+      "completedAt": null
+    },
+    {
+      "id": "3",
+      "title": "Complete online course module",
+      "description": "Finish the advanced React patterns course and submit the final assignment",
+      "categoryId": "learning",
+      "priority": "medium",
+      "dueDate": "2024-01-20T23:59:00.000Z",
+      "completed": true,
+      "createdAt": "2024-01-05T10:00:00.000Z",
+      "completedAt": "2024-01-12T16:45:00.000Z"
+    },
+    {
+      "id": "4",
+      "title": "Plan weekend hiking trip",
+      "description": "Research trails, check weather, and pack essential gear for the mountain hike",
+      "categoryId": "personal",
+      "priority": "low",
+      "dueDate": "2024-01-19T12:00:00.000Z",
+      "completed": false,
+      "createdAt": "2024-01-08T19:30:00.000Z",
+      "completedAt": null
+    },
+    {
+      "id": "5",
+      "title": "Schedule annual health checkup",
+      "description": "Book appointment with primary care physician and update insurance information",
+      "categoryId": "health",
+      "priority": "high",
+      "dueDate": "2024-01-25T00:00:00.000Z",
+      "completed": false,
+      "createdAt": "2024-01-07T11:20:00.000Z",
+      "completedAt": null
+    }
+  ]
+}

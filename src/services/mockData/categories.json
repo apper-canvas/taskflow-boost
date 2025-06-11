@@ -1,0 +1,39 @@
+{
+  "categoryData": [
+    {
+      "id": "work",
+      "name": "Work",
+      "color": "#5B4FE7",
+      "icon": "Briefcase",
+      "taskCount": 2
+    },
+    {
+      "id": "personal",
+      "name": "Personal",
+      "color": "#22C55E",
+      "icon": "User",
+      "taskCount": 1
+    },
+    {
+      "id": "learning",
+      "name": "Learning",
+      "color": "#F59E0B",
+      "icon": "BookOpen",
+      "taskCount": 1
+    },
+    {
+      "id": "health",
+      "name": "Health",
+      "color": "#EF4444",
+      "icon": "Heart",
+      "taskCount": 1
+    },
+    {
+      "id": "finance",
+      "name": "Finance",
+      "color": "#3B82F6",
+      "icon": "DollarSign",
+      "taskCount": 0
+    }
+  ]
+}
