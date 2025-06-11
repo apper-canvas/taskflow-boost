@@ -73,7 +73,146 @@ class TaskService {
 
   async getPending() {
     await delay(200)
-    return this.tasks.filter(t => !t.completed).map(t => ({ ...t }))
+return this.tasks.filter(t => !t.completed).map(t => ({ ...t }))
+  }
+
+  // Subtask operations
+  async createSubtask(taskId, subtaskData) {
+    await delay(250)
+    const taskIndex = this.tasks.findIndex(t => t.id === taskId)
+    if (taskIndex === -1) {
+      throw new Error('Task not found')
+    }
+
+    const task = this.tasks[taskIndex]
+    if (!task.subtasks) {
+      task.subtasks = []
+    }
+
+    const newSubtask = {
+      id: Date.now().toString(),
+      title: subtaskData.title,
+      description: subtaskData.description || '',
+      status: 'todo',
+      order: task.subtasks.length,
+      taskId: taskId,
+      createdAt: new Date().toISOString(),
+      completedAt: null
+    }
+
+    task.subtasks.push(newSubtask)
+    return { ...newSubtask }
+  }
+
+  async updateSubtask(taskId, subtaskId, updates) {
+    await delay(200)
+    const taskIndex = this.tasks.findIndex(t => t.id === taskId)
+    if (taskIndex === -1) {
+      throw new Error('Task not found')
+    }
+
+    const task = this.tasks[taskIndex]
+    if (!task.subtasks) {
+      throw new Error('No subtasks found')
+    }
+
+    const subtaskIndex = task.subtasks.findIndex(s => s.id === subtaskId)
+    if (subtaskIndex === -1) {
+      throw new Error('Subtask not found')
+    }
+
+    const updatedSubtask = {
+      ...task.subtasks[subtaskIndex],
+      ...updates,
+      completedAt: updates.status === 'completed' ? new Date().toISOString() : null
+    }
+
+    task.subtasks[subtaskIndex] = updatedSubtask
+    return { ...updatedSubtask }
+  }
+
+  async deleteSubtask(taskId, subtaskId) {
+    await delay(200)
+    const taskIndex = this.tasks.findIndex(t => t.id === taskId)
+    if (taskIndex === -1) {
+      throw new Error('Task not found')
+    }
+
+    const task = this.tasks[taskIndex]
+    if (!task.subtasks) {
+      throw new Error('No subtasks found')
+    }
+
+    const subtaskIndex = task.subtasks.findIndex(s => s.id === subtaskId)
+    if (subtaskIndex === -1) {
+      throw new Error('Subtask not found')
+    }
+
+    task.subtasks.splice(subtaskIndex, 1)
+    
+    // Reorder remaining subtasks
+    task.subtasks.forEach((subtask, index) => {
+      subtask.order = index
+    })
+
+    return true
+  }
+
+  async reorderSubtasks(taskId, subtaskIds) {
+    await delay(250)
+    const taskIndex = this.tasks.findIndex(t => t.id === taskId)
+    if (taskIndex === -1) {
+      throw new Error('Task not found')
+    }
+
+    const task = this.tasks[taskIndex]
+    if (!task.subtasks) {
+      throw new Error('No subtasks found')
+    }
+
+    // Create a map for quick lookup
+    const subtaskMap = new Map(task.subtasks.map(s => [s.id, s]))
+    
+    // Reorder subtasks based on provided order
+    task.subtasks = subtaskIds.map((id, index) => {
+      const subtask = subtaskMap.get(id)
+      if (!subtask) {
+        throw new Error(`Subtask ${id} not found`)
+      }
+      return { ...subtask, order: index }
+    })
+
+    return [...task.subtasks]
+  }
+
+  async toggleSubtaskStatus(taskId, subtaskId) {
+    await delay(200)
+    const taskIndex = this.tasks.findIndex(t => t.id === taskId)
+    if (taskIndex === -1) {
+      throw new Error('Task not found')
+    }
+
+    const task = this.tasks[taskIndex]
+    if (!task.subtasks) {
+      throw new Error('No subtasks found')
+    }
+
+    const subtaskIndex = task.subtasks.findIndex(s => s.id === subtaskId)
+    if (subtaskIndex === -1) {
+      throw new Error('Subtask not found')
+    }
+
+    const subtask = task.subtasks[subtaskIndex]
+    const newStatus = subtask.status === 'completed' ? 'todo' : 'completed'
+    
+    const updatedSubtask = {
+      ...subtask,
+      status: newStatus,
+      completedAt: newStatus === 'completed' ? new Date().toISOString() : null
+    }
+
+    task.subtasks[subtaskIndex] = updatedSubtask
+    return { ...updatedSubtask }
   }
 }
 

@@ -111,13 +111,41 @@ const TaskCard = ({ task, category, onToggleCompletion, onEdit, index }) => {
 
         {task.completed && completedAtDate && (
           <div className="flex items-center text-success">
-            <ApperIcon name="CheckCircle" className="w-3 h-3 mr-1" />
+<ApperIcon name="CheckCircle" className="w-3 h-3 mr-1" />
             <Text as="span">Completed {format(completedAtDate, 'MMM d')}</Text>
           </div>
         )}
       </div>
+
+      {/* Subtask Progress Indicator */}
+      {task.subtasks && task.subtasks.length > 0 && (
+        <div className="mt-3 pt-3 border-t border-surface-200">
+          <div className="flex items-center justify-between text-xs">
+            <div className="flex items-center space-x-2">
+              <ApperIcon name="CheckSquare" className="w-3 h-3 text-surface-500" />
+              <Text as="span" className="text-surface-600">
+                Subtasks: {task.subtasks.filter(s => s.status === 'completed').length}/{task.subtasks.length}
+              </Text>
+            </div>
+            <div className="flex items-center space-x-2">
+              <div className="w-12 h-1.5 bg-surface-200 rounded-full overflow-hidden">
+                <div
+                  className="h-full bg-success rounded-full transition-all duration-300"
+                  style={{
+                    width: `${task.subtasks.length > 0 ? (task.subtasks.filter(s => s.status === 'completed').length / task.subtasks.length) * 100 : 0}%`
+                  }}
+                />
+              </div>
+              <Text as="span" className="text-surface-500 min-w-[2rem] text-right">
+                {task.subtasks.length > 0 
+                  ? Math.round((task.subtasks.filter(s => s.status === 'completed').length / task.subtasks.length) * 100)
+                  : 0}%
+              </Text>
+            </div>
+          </div>
+        </div>
+      )}
     </motion.div>
-  );
 };
 
 export default TaskCard;
