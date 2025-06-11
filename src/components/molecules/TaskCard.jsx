@@ -105,13 +105,13 @@ const TaskCard = ({ task, category, onToggleCompletion, onEdit, index }) => {
             'text-surface-600'
           }`}>
             <ApperIcon name="Calendar" className="w-3 h-3 mr-1" />
-            <Text as="span">{format(new Date(task.dueDate), 'MMM d')}</Text>
+<Text as="span">{format(new Date(task.dueDate), 'MMM d')}</Text>
           </div>
         )}
 
         {task.completed && completedAtDate && (
           <div className="flex items-center text-success">
-<ApperIcon name="CheckCircle" className="w-3 h-3 mr-1" />
+            <ApperIcon name="CheckCircle" className="w-3 h-3 mr-1" />
             <Text as="span">Completed {format(completedAtDate, 'MMM d')}</Text>
           </div>
         )}
